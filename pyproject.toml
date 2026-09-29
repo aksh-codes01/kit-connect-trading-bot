@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kite-bot"
+version = "0.1.0"
+description = "Screening and trading utilities built on the Zerodha Kite Connect API"
+requires-python = ">=3.9"
+dependencies = ["pandas", "numpy"]
+
+[project.optional-dependencies]
+live = ["kiteconnect"]     # only needed for the download command and KiteBroker
+renko = ["stocktrends"]    # only needed for indicators.renko
+dev = ["pytest"]
+
+[project.scripts]
+kite-bot = "kite_bot.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

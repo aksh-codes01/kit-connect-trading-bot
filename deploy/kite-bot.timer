@@ -1,0 +1,11 @@
+# Example systemd timer: start the bot on weekday mornings (untested).
+#   sudo systemctl enable --now kite-bot.timer
+[Unit]
+Description=Start the Kite bot on weekday mornings
+
+[Timer]
+OnCalendar=Mon..Fri 08:50 Asia/Kolkata
+Persistent=false
+
+[Install]
+WantedBy=timers.target

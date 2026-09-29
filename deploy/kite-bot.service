@@ -1,0 +1,29 @@
+# Example systemd unit. Untested: adapt paths and user, then:
+#   sudo cp deploy/kite-bot.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+[Unit]
+Description=Kite Connect trading bot (one trading day)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=kitebot
+WorkingDirectory=/opt/kite-bot
+# Refresh access_token.txt first (your own login step), then run the session.
+ExecStartPre=/opt/kite-bot/deploy/refresh_token.sh
+ExecStart=/opt/kite-bot/.venv/bin/python -m kite_bot live \
+    --universe /opt/kite-bot/universe.txt \
+    --mode paper \
+    --db /var/lib/kite-bot/bot.db \
+    --auth-dir /etc/kite-bot \
+    --capital 20000 --max-daily-loss 1000
+# The bot reconciles with the database and broker on start-up, so a restart mid-day is safe (live mode only).
+Restart=on-failure
+RestartSec=20
+# A session ends by itself at 15:31; stop it if something hangs.
+RuntimeMaxSec=32400
+Environment=TZ=Asia/Kolkata
+
+[Install]
+WantedBy=multi-user.target

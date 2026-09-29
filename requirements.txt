@@ -1,0 +1,9 @@
+kiteconnect
+pandas
+numpy
+selenium
+pyotp
+statsmodels
+stocktrends
+yfinance
+smartapi-python

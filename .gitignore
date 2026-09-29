@@ -1,0 +1,36 @@
+# Secrets / credentials — NEVER commit these
+api_key.txt
+key.txt
+access_token.txt
+request_token.txt
+*.pem
+chromedriver
+chromedriver.exe
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Data / logs generated at runtime
+*.csv
+*.db
+*.sqlite3
+*.log
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test / build artifacts
+.pytest_cache/
+*.egg-info/
+build/
+dist/
